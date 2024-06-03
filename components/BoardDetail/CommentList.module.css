@@ -1,0 +1,34 @@
+.commentsCard {
+  margin-top: 20px;
+}
+
+.commentsCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.commentsCard li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+}
+
+.commentsCard li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.commentsCard .content {
+  margin-bottom: 10px;
+}
+
+.commentsCard .nickname {
+  margin-right: 10px;
+}
+
+.commentsCard .updatedAt {
+  color: #888;
+  font-size: 14px;
+}
