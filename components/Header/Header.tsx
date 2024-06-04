@@ -46,7 +46,8 @@ const Header = () => {
     router.push("/login");
   };
 
-  const freeBoardActive = pathname === "/boards";
+  const freeBoardActive =
+    pathname === "/boards" || pathname.startsWith("/boards/");
   const isUsedMarketActive =
     pathname === "/items" ||
     pathname === "/additem" ||

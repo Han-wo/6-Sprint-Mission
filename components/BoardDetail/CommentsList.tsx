@@ -1,65 +1,58 @@
-"use client";
 import styles from "@/components/BoardDetail/CommentList.module.css";
-import { useState, useEffect } from "react";
 import { getComments } from "@/app/apis/getComments";
-import { formatDate } from "@/app/utils/formateDate";
-
-interface RootObject {
-  nextCursor: number;
-  list: List[];
-}
-
-interface List {
-  writer: Writer;
-  updatedAt: string;
-  createdAt: string;
-  content: string;
-  id: number;
-}
-
-interface Writer {
-  image: string;
-  nickname: string;
-  id: number;
-}
+import empyhCommentImg from "@/app/assets/images/Img_reply_empty.png";
+import { formatTimes } from "@/app/utils/fotmatTime";
+import KebabIcon from "@/app/assets/images/ic_kebab.png";
+import ProfileImg from "@/app/assets/images/ic_profile.png";
+import Image from "next/image";
 
 interface Props {
   articleId: number;
 }
 
-export default function CommentDetail({ articleId }: Props) {
-  const [comments, setComments] = useState<RootObject | undefined>(undefined);
-
-  useEffect(() => {
-    getComments(articleId, 5).then((data) => {
-      setComments(data);
-    });
-  }, [articleId]);
+export default async function CommentDetail({ articleId }: Props) {
+  const { list: comments } = await getComments(articleId, 5);
 
   return (
     <div className={styles.commentsCard}>
-      {comments && comments.list ? (
-        comments.list.length > 0 ? (
-          <ul>
-            {comments.list.map((comment) => (
-              <li key={comment.id}>
+      {comments && comments.length > 0 ? (
+        <ul>
+          {comments.map((comment) => (
+            <li key={comment.id}>
+              <div className={styles.contentWrapper}>
                 <div className={styles.content}>{comment.content}</div>
-                <div>
+                <Image src={KebabIcon} alt="케밥아이콘" />
+              </div>
+              <div className={styles.WriterInfoWrapper}>
+                <Image
+                  src={ProfileImg}
+                  alt="프로필아이콘"
+                  width={32}
+                  height={32}
+                />
+                <div className={styles.writerInfo}>
                   <span className={styles.nickname}>
                     {comment.writer.nickname}
                   </span>
                   <span className={styles.updatedAt}>
-                    {formatDate(comment.updatedAt)}
+                    {formatTimes(comment.updatedAt)}
                   </span>
                 </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>댓글이 없습니다.</p>
-        )
+              </div>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <p>댓글을 불러오는 중입니다...</p>
+        <div className={styles.notcomments}>
+          <Image
+            src={empyhCommentImg}
+            alt="댓글이 없습니다."
+            width={140}
+            height={140}
+          />
+          <div className={styles.noCommnets}>아직 댓글이 없어요.</div>
+          <div className={styles.noCommnets}>지금 댓글을 달어보세요.</div>
+        </div>
       )}
     </div>
   );

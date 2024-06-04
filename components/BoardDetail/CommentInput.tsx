@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import styles from "@/components/BoardDetail/CommentInput.module.css";
 import { BASE_URL } from "@/app/apis/getComments";
+import { useRouter } from "next/navigation";
 
 interface CommentInputProps {
   articleId: number;
@@ -10,6 +11,7 @@ interface CommentInputProps {
 export default function CommentInput({ articleId }: CommentInputProps) {
   const [comment, setComment] = useState("");
   const [token, setToken] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("accessToken");
@@ -36,6 +38,7 @@ export default function CommentInput({ articleId }: CommentInputProps) {
 
       if (response.ok) {
         setComment("");
+        router.refresh();
       } else {
         console.error("댓글 작성 실패");
       }
