@@ -1,0 +1,110 @@
+.postWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.postTitle {
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23.87px;
+  text-align: left;
+  color: #1f2937;
+}
+.postLabel {
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.48px;
+  text-align: left;
+  color: #1f2937;
+  margin-bottom: 24px;
+}
+.postButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3692ff;
+  cursor: pointer;
+  width: 74px;
+  height: 48px;
+  padding: 12px 17px 12px 17px;
+  gap: 10px;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #3692ff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.09px;
+  text-align: left;
+}
+.postTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.postTitleInput {
+  width: 100%;
+  height: 48px;
+  background-color: #f3f4f6;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  padding: 12px 23px 12px 23px;
+  gap: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+.postTitleInput:focus {
+  outline: none;
+  border: 1px solid #3692ff;
+}
+
+.postContentInput {
+  width: 100%;
+  height: 315px;
+  background-color: #f3f4f6;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #9ca3af;
+  padding: 12px 23px 12px 23px;
+  gap: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  resize: none;
+}
+.postContentInput:focus {
+  outline: none;
+  border: 1px solid #3692ff;
+}
+.postContentWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 140px;
+  width: 100%;
+}
+@media (max-width: 1023px) {
+  .postContainer {
+    padding: 40px 80px;
+    height: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .postContainer {
+    padding: 30px 30px;
+  }
+}

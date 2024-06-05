@@ -15,3 +15,48 @@
     font-family: Pretendard;
   }
 }
+
+.commentLabel {
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.09px;
+  text-align: left;
+  color: #111827;
+  margin-bottom: 20px;
+}
+.commentButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3692ff;
+  cursor: pointer;
+  width: 250px;
+  height: 48px;
+  padding: 12px 25px 12px 25px;
+  gap: 10px;
+  border-radius: 40px;
+  color: #ffffff;
+  background-color: #3692ff;
+}
+.backButton img {
+  margin-top: 6px;
+}
+
+.backButton:hover {
+  background-color: #4a9cff;
+}
+
+.buttonText {
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: center;
+}
