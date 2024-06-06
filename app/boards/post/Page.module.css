@@ -42,6 +42,13 @@
   line-height: 19.09px;
   text-align: left;
 }
+
+.postButton:disabled {
+  background-color: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
 .postTitleWrapper {
   display: flex;
   flex-direction: column;

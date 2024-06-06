@@ -2,6 +2,7 @@ import BestList from "@/components/Board/BestList";
 import styles from "@/app/boards/BoardPage.module.css";
 import SearchTitle from "@/components/Board/SearchTitle";
 import { List, RootObject, BASE_URL } from "@/app/apis/getArticle";
+import Link from "next/link";
 
 interface Props {
   searchParams?: {
@@ -44,7 +45,9 @@ export default async function BoardPage({ searchParams }: Props) {
       </div>
       <div className={styles.boardListContainer}>
         <div className={styles.boardListTitle}>게시글</div>
-        <button className={styles.writeButton}>글쓰기</button>
+        <Link href="/boards/post" className={styles.writeButton}>
+          글쓰기
+        </Link>
       </div>
       <SearchTitle
         articles={articles}

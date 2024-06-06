@@ -1,6 +1,6 @@
 import styles from "@/components/BoardDetail/CommentList.module.css";
 import { getComments } from "@/app/apis/getComments";
-import empyhCommentImg from "@/app/assets/images/Img_reply_empty.png";
+import emptyCommentImg from "@/app/assets/images/Img_reply_empty.png";
 import { formatTimes } from "@/app/utils/fotmatTime";
 import KebabIcon from "@/app/assets/images/ic_kebab.png";
 import ProfileImg from "@/app/assets/images/ic_profile.png";
@@ -45,13 +45,13 @@ export default async function CommentDetail({ articleId }: Props) {
       ) : (
         <div className={styles.notcomments}>
           <Image
-            src={empyhCommentImg}
+            src={emptyCommentImg}
             alt="댓글이 없습니다."
             width={140}
             height={140}
           />
           <div className={styles.noCommnets}>아직 댓글이 없어요.</div>
-          <div className={styles.noCommnets}>지금 댓글을 달어보세요.</div>
+          <div className={styles.noCommnets}>지금 댓글을 달어보세요</div>
         </div>
       )}
     </div>
