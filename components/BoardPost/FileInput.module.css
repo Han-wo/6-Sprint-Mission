@@ -1,0 +1,90 @@
+.fileInputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.totalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  width: 282px;
+  height: 282px;
+  background-color: #f3f4f6;
+  margin-top: 20px;
+}
+
+@media (max-width: 1023px) {
+  .totalContainer {
+    width: 162px;
+    height: 162px;
+  }
+}
+
+@media (max-width: 767px) {
+  .totalContainer {
+    width: 168px;
+    height: 168px;
+  }
+}
+
+.uploadButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 58px;
+  color: #9ca3af;
+}
+
+.text {
+  margin-top: 10px;
+  color: #9ca3af;
+}
+
+.imagePreview {
+  position: relative;
+  width: 282px;
+  height: 282px;
+  border-radius: 22px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 1023px) {
+  .imagePreview {
+    width: 162px;
+    height: 162px;
+  }
+}
+
+@media (max-width: 767px) {
+  .imagePreview {
+    width: 168px;
+    height: 168px;
+  }
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.removeButton {
+  position: absolute;
+  right: -1px;
+  background-color: #3692ff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}

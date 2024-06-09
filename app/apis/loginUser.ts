@@ -7,7 +7,7 @@ type LoginData = {
 };
 
 type LoginResponse = {
-  token: string;
+  accessToken: string;
 };
 
 const loginUser = async (
@@ -15,6 +15,13 @@ const loginUser = async (
 ): Promise<LoginResponse | undefined> => {
   try {
     const response = await instance.post<LoginResponse>("/auth/signIn", data);
+    const { accessToken } = response.data;
+
+    // 토큰 저장
+    if (typeof window !== "undefined") {
+      localStorage.setItem("accessToken", accessToken);
+    }
+
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {

@@ -27,24 +27,38 @@ export default function SearchTitle({
   const router = useRouter();
   const [sortBy, setSortBy] = useState(orderBy);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState(keyword);
 
   useEffect(() => {
     setSortBy(orderBy);
   }, [orderBy]);
 
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      router.push(
+        `/boards?page=${page}&pageSize=${pageSize}&keyword=${searchKeyword}&orderBy=${sortBy}`
+      );
+    }, 300);
+
+    return () => {
+      clearTimeout(debounceTimer);
+    };
+  }, [searchKeyword, page, pageSize, sortBy]);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newKeyword = e.target.value;
-    router.push(
-      `/boards?page=${page}&pageSize=${pageSize}&keyword=${newKeyword}&orderBy=${sortBy}`
-    );
+    setSearchKeyword(e.target.value);
   };
 
   const handleSortChange = (newSortBy: string) => {
     setSortBy(newSortBy);
     setIsDropdownOpen(false);
-    router.push(
-      `/boards?page=${page}&pageSize=${pageSize}&keyword=${keyword}&orderBy=${newSortBy}`
+    router.replace(
+      `/boards?page=${page}&pageSize=${pageSize}&keyword=${searchKeyword}&orderBy=${newSortBy}`
     );
+  };
+
+  const handleArticleClick = (articleId: number) => {
+    router.push(`/boards/${articleId}`);
   };
 
   return (
@@ -53,7 +67,7 @@ export default function SearchTitle({
         <input
           type="text"
           placeholder="검색할상품을 입력하세요"
-          defaultValue={keyword}
+          value={searchKeyword}
           onChange={handleSearchChange}
           className={styles.searchInput}
         />
@@ -75,7 +89,11 @@ export default function SearchTitle({
       </div>
       <ul className={styles.articleList}>
         {articles.map((article) => (
-          <li key={article.id} className={styles.articleItem}>
+          <li
+            key={article.id}
+            className={styles.articleItem}
+            onClick={() => handleArticleClick(article.id)}
+          >
             <div className={styles.articleContent}>
               <div className={styles.articleItemsWrapper}>
                 <div className={styles.articleTitle}>{article.title}</div>

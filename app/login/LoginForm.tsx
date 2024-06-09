@@ -31,11 +31,12 @@ const LoginForm = () => {
     try {
       const response = await loginUser(data);
       if (response) {
-        const { token } = response;
+        const { accessToken } = response;
         if (typeof window !== "undefined") {
-          localStorage.setItem("accessToken", token);
+          localStorage.setItem("accessToken", accessToken);
         }
         console.log("로그인 성공");
+        console.log("토큰:", accessToken);
         router.push("/items");
       }
     } catch (error) {
