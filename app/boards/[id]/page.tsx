@@ -1,6 +1,7 @@
 import BoardDetail from "@/components/BoardDetail/BoardDetail";
 import CommentInput from "@/components/BoardDetail/CommentInput";
 import CommentsList from "@/components/BoardDetail/CommentsList";
+import { getComments } from "@/app/apis/getComments";
 import styles from "@/app/boards/[id]/Page.module.css";
 import backIcon from "@/app/assets/images/ic_back.png";
 import Link from "next/link";

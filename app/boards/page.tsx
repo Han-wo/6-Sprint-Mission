@@ -36,6 +36,7 @@ export default async function BoardPage({ searchParams }: Props) {
 
   const articles: List[] = (articlesData as RootObject).list;
   const bestList: List[] = (bestListData as RootObject).list;
+  const totalCount: number = (articlesData as RootObject).totalCount;
 
   return (
     <div className={styles.bestPageContainer}>
@@ -55,6 +56,7 @@ export default async function BoardPage({ searchParams }: Props) {
         page={page}
         pageSize={pageSize}
         orderBy={orderBy}
+        totalCount={totalCount}
       />
     </div>
   );

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { refreshAccessToken } from "./refreshToken";
 
 const getAccessToken = () => {
   if (typeof window !== "undefined") {
@@ -14,3 +15,5 @@ export const instance: AxiosInstance = axios.create({
     Authorization: `Bearer ${getAccessToken()}`,
   },
 });
+
+refreshAccessToken(instance);
