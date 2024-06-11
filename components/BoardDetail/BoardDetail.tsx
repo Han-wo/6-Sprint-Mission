@@ -1,10 +1,11 @@
+// BoardDetail.tsx
 import styles from "@/components/BoardDetail/BoardDetail.module.css";
 import { getArticleDetail, RootObject } from "@/app/apis/getArticleDetail";
 import { formatDate } from "@/app/utils/formateDate";
 import Image from "next/image";
 import profileImg from "@/app/assets/images/ic_profile.png";
-import KebabIcon from "@/app/assets/images/ic_kebab.png";
 import LikeButton from "./LikeButton";
+import DropdownMenu from "@/components/DropDown";
 
 type Props = {
   articleId: number;
@@ -18,7 +19,7 @@ export default async function BoardDetail({ articleId }: Props) {
       <div className={styles.titleContainer}>
         <div className={styles.titleWrapper}>
           <div className={styles.title}>{article.title}</div>
-          <Image src={KebabIcon} alt="케밥아이콘" />
+          <DropdownMenu articleId={articleId} />
         </div>
         <div className={styles.tagWrapper}>
           <div className={styles.writerInfo}>
