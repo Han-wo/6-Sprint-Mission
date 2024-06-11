@@ -2,9 +2,9 @@ import styles from "@/components/BoardDetail/BoardDetail.module.css";
 import { getArticleDetail, RootObject } from "@/app/apis/getArticleDetail";
 import { formatDate } from "@/app/utils/formateDate";
 import Image from "next/image";
-import heartImg from "@/app/assets/images/ic_heart.svg";
 import profileImg from "@/app/assets/images/ic_profile.png";
 import KebabIcon from "@/app/assets/images/ic_kebab.png";
+import LikeButton from "./LikeButton";
 
 type Props = {
   articleId: number;
@@ -26,10 +26,10 @@ export default async function BoardDetail({ articleId }: Props) {
             <span className={styles.writer}>{article.writer.nickname}</span>
             <span className={styles.date}>{formatDate(article.createdAt)}</span>
           </div>
-          <div className={styles.likeCount}>
-            <Image src={heartImg} alt="좋아요아이콘" width={24} height={24} />
-            {article.likeCount}
-          </div>
+          <LikeButton
+            articleId={article.id}
+            initialLikeCount={article.likeCount}
+          />
         </div>
       </div>
       <div className={styles.contentWrapper}>

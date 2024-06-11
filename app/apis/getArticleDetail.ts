@@ -1,17 +1,18 @@
 export interface RootObject {
-  updatedAt: string;
-  createdAt: string;
-  likeCount: number;
-  writer: Writer;
-  image: string;
-  content: string;
-  title: string;
   id: number;
+  title: string;
+  content: string;
+  image: null;
+  likeCount: number;
+  createdAt: string;
+  updatedAt: string;
+  writer: Writer;
+  isLiked: boolean;
 }
 
 interface Writer {
-  nickname: string;
   id: number;
+  nickname: string;
 }
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
