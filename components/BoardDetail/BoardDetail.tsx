@@ -1,4 +1,3 @@
-// BoardDetail.tsx
 import styles from "@/components/BoardDetail/BoardDetail.module.css";
 import { getArticleDetail, RootObject } from "@/app/apis/getArticleDetail";
 import { formatDate } from "@/app/utils/formateDate";

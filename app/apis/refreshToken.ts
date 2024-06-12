@@ -4,10 +4,30 @@ type RefreshTokenResponse = {
   accessToken: string;
 };
 
+const getAccessToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("accessToken");
+  }
+  return null;
+};
+
+const setAccessToken = (token: string) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("accessToken", token);
+  }
+};
+
+const getRefreshToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("refreshToken");
+  }
+  return null;
+};
+
 export const refreshAccessToken = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     async (config) => {
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = getAccessToken();
       if (accessToken) {
         config.headers["Authorization"] = `Bearer ${accessToken}`;
       }
@@ -23,12 +43,16 @@ export const refreshAccessToken = (instance: AxiosInstance) => {
       return response;
     },
 
-    async (error) => {
+    async (error: any) => {
       const originalRequest = error.config;
-      if (error.response.status === 401 && !originalRequest._retry) {
+      if (
+        error.response &&
+        error.response.status === 401 &&
+        !originalRequest._retry
+      ) {
         originalRequest._retry = true;
         try {
-          const refreshToken = localStorage.getItem("refreshToken");
+          const refreshToken = getRefreshToken();
           if (!refreshToken) {
             return Promise.reject(error);
           }
@@ -41,9 +65,7 @@ export const refreshAccessToken = (instance: AxiosInstance) => {
           );
           const { accessToken } = response.data;
 
-          if (typeof window !== "undefined") {
-            localStorage.setItem("accessToken", accessToken);
-          }
+          setAccessToken(accessToken);
 
           originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
 

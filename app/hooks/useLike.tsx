@@ -6,7 +6,7 @@ export default function useLike(articleId: number, initialLikeCount: number) {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLikeClick = async () => {
-    if (isLiked) {
+    if (isLiked === true) {
       // 좋아요 취소
       try {
         await deleteLike(articleId);

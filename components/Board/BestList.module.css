@@ -139,3 +139,7 @@
     margin-left: 15px;
   }
 }
+.bestListLink {
+  text-decoration: none;
+  color: inherit;
+}
