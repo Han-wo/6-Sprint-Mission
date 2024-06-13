@@ -1,7 +1,15 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .inputContainer {
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .label {
@@ -35,7 +43,7 @@
   border-color: red;
 }
 
-.loginButton {
+.signUpButton {
   width: 100%;
   height: 56px;
   border: 1px;
@@ -52,30 +60,9 @@
   cursor: pointer;
 }
 
-.loginButton.disabled {
+.disabled {
   background: #9ca3af;
-}
-
-.socialLoginContainer {
-  background-color: #e6f2ff;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 23px;
-  margin: 24px 0;
-}
-
-.logText {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.socialLogin {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 16px;
+  cursor: not-allowed;
 }
 
 .errorText {
@@ -87,4 +74,29 @@
   padding-top: 5px;
   padding-left: 15px;
   color: red;
+}
+
+.socialLoginContainer {
+  font-family: pretendard;
+  width: 100%;
+  background-color: #e6f2ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 23px;
+  margin: 24px 0;
+}
+
+.logText {
+  font-family: pretendard;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.socialLogin {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
 }

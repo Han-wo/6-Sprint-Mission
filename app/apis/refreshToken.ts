@@ -63,6 +63,7 @@ export const refreshAccessToken = (instance: AxiosInstance) => {
               refreshToken,
             }
           );
+
           const { accessToken } = response.data;
 
           setAccessToken(accessToken);
