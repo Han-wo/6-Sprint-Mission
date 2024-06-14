@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./Dropdown.module.css";
 import kebabIcon from "@/app/assets/images/ic_kebab.png";
 import Image from "next/image";
 import { deleteArticle } from "@/app/apis/deleteArticle";
 import { deleteComment } from "@/app/apis/deleteCommnet";
+import useOutsideClick from "@/app/hooks/useOutsideClick";
 import { useRouter } from "next/navigation";
 
 interface DropdownMenuProps {
@@ -18,11 +19,18 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   commentId,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+  const closeDropdown = () => {
+    setShowDropdown(false);
+  };
+
+  useOutsideClick(dropdownRef, closeDropdown);
 
   const handleDelete = async () => {
     try {
@@ -57,7 +65,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   };
 
   return (
-    <div className={styles.dropdownContainer}>
+    <div className={styles.dropdownContainer} ref={dropdownRef}>
       <button className={styles.kebabIcon} onClick={toggleDropdown}>
         <Image src={kebabIcon} alt="케밥아이콘" />
       </button>
