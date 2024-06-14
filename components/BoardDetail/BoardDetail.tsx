@@ -1,24 +1,35 @@
+"use client";
 import styles from "@/components/BoardDetail/BoardDetail.module.css";
-import { getArticleDetail, RootObject } from "@/app/apis/getArticleDetail";
+import { RootObject } from "@/app/apis/getArticleDetail";
 import { formatDate } from "@/app/utils/formateDate";
 import Image from "next/image";
 import profileImg from "@/app/assets/images/ic_profile.png";
 import LikeButton from "./LikeButton";
 import DropdownMenu from "@/components/DropDown";
+import { useState } from "react";
+import ImageModal from "@/components/ImageModal";
 
 type Props = {
-  articleId: number;
+  article: RootObject;
 };
 
-export default async function BoardDetail({ articleId }: Props) {
-  const article: RootObject = await getArticleDetail(articleId);
+export default function BoardDetail({ article }: Props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <div className={styles.titleWrapper}>
           <div className={styles.title}>{article.title}</div>
-          <DropdownMenu articleId={articleId} />
+          <DropdownMenu articleId={article.id} />
         </div>
         <div className={styles.tagWrapper}>
           <div className={styles.writerInfo}>
@@ -42,10 +53,16 @@ export default async function BoardDetail({ articleId }: Props) {
               className={styles.image}
               width={72}
               height={72}
+              onClick={openModal}
             />
           )}
         </div>
       </div>
+      <ImageModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        imageSrc={article.image || ""}
+      />
     </div>
   );
 }
