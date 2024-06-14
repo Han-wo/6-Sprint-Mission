@@ -5,7 +5,7 @@ import styles from "./Dropdown.module.css";
 import kebabIcon from "@/app/assets/images/ic_kebab.png";
 import Image from "next/image";
 import { deleteArticle } from "@/app/apis/deleteArticle";
-import { deleteComment } from "@/app/apis/deleteCommnet"; // 댓글 삭제 API 함수 임포트
+import { deleteComment } from "@/app/apis/deleteCommnet";
 import { useRouter } from "next/navigation";
 
 interface DropdownMenuProps {

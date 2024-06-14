@@ -81,8 +81,10 @@
 .errorText {
   font-family: Pretendard;
   font-size: 15px;
-  font-weight: 500;
-  line-height: 18px;
+  font-weight: 600;
+  line-height: 17.9px;
+  text-align: left;
+
   letter-spacing: 0em;
   padding-top: 5px;
   padding-left: 15px;
