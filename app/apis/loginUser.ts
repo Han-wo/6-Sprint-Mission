@@ -8,6 +8,7 @@ type LoginData = {
 
 type LoginResponse = {
   accessToken: string;
+  refreshToken: string;
 };
 
 const loginUser = async (
@@ -15,11 +16,11 @@ const loginUser = async (
 ): Promise<LoginResponse | undefined> => {
   try {
     const response = await instance.post<LoginResponse>("/auth/signIn", data);
-    const { accessToken } = response.data;
+    const { accessToken, refreshToken } = response.data;
 
-    // 토큰 저장
     if (typeof window !== "undefined") {
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
     }
 
     return response.data;

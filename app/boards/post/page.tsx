@@ -41,6 +41,7 @@ export default function PostPage() {
 
       if (imgFile) {
         const formData = new FormData();
+
         formData.append("image", imgFile);
 
         const imageResponse = await fetch(`${BASE_URL}/images/upload`, {
@@ -53,6 +54,7 @@ export default function PostPage() {
 
         if (imageResponse.ok) {
           const imageData = await imageResponse.json();
+
           imageUrl = imageData.url;
         } else {
           console.error("Error uploading image:", imageResponse.statusText);

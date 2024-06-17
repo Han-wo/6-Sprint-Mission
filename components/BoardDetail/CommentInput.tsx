@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "@/components/BoardDetail/CommentInput.module.css";
-import { BASE_URL } from "@/app/apis/getComments";
 import { useRouter } from "next/navigation";
+import { postComment } from "@/app/apis/postComments";
 
 interface CommentInputProps {
   articleId: number;
@@ -24,24 +24,9 @@ export default function CommentInput({ articleId }: CommentInputProps) {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        `${BASE_URL}/articles/${articleId}/comments`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ content: comment }),
-        }
-      );
-
-      if (response.ok) {
-        setComment("");
-        router.refresh();
-      } else {
-        console.error("댓글 작성 실패");
-      }
+      await postComment(articleId, comment, token);
+      setComment("");
+      router.refresh();
     } catch (error) {
       console.error("댓글 작성 중 오류 발생:", error);
     }

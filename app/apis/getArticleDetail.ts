@@ -1,25 +1,32 @@
+import { instance } from "./Axios";
+
 export interface RootObject {
-  updatedAt: string;
-  createdAt: string;
-  likeCount: number;
-  writer: Writer;
-  image: string;
-  content: string;
-  title: string;
   id: number;
+  title: string;
+  content: string;
+  image: null;
+  likeCount: number;
+  createdAt: string;
+  updatedAt: string;
+  writer: Writer;
+  isLiked: boolean;
 }
 
 interface Writer {
-  nickname: string;
   id: number;
+  nickname: string;
 }
 
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 export async function getArticleDetail(articleId: number): Promise<RootObject> {
-  const res = await fetch(`${BASE_URL}/articles/${articleId}`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
+  try {
+    const res = await instance.get(`/articles/${articleId}`, {
+      headers: {
+        Authorization: undefined,
+      },
+    });
+    const data = res.data;
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }

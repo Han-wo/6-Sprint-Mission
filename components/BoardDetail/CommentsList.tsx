@@ -1,18 +1,16 @@
 import styles from "@/components/BoardDetail/CommentList.module.css";
-import { getComments } from "@/app/apis/getComments";
 import emptyCommentImg from "@/app/assets/images/Img_reply_empty.png";
 import { formatTimes } from "@/app/utils/fotmatTime";
-import KebabIcon from "@/app/assets/images/ic_kebab.png";
+import DropdownMenu from "@/components/DropDown";
 import ProfileImg from "@/app/assets/images/ic_profile.png";
 import Image from "next/image";
-
+import { List } from "@/app/apis/getComments";
 interface Props {
   articleId: number;
+  comments: List[];
 }
 
-export default async function CommentDetail({ articleId }: Props) {
-  const { list: comments } = await getComments(articleId, 5);
-
+export default function CommentsList({ articleId, comments }: Props) {
   return (
     <div className={styles.commentsCard}>
       {comments && comments.length > 0 ? (
@@ -21,7 +19,7 @@ export default async function CommentDetail({ articleId }: Props) {
             <li key={comment.id}>
               <div className={styles.contentWrapper}>
                 <div className={styles.content}>{comment.content}</div>
-                <Image src={KebabIcon} alt="케밥아이콘" />
+                <DropdownMenu commentId={comment.id} />
               </div>
               <div className={styles.WriterInfoWrapper}>
                 <Image

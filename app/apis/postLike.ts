@@ -1,3 +1,5 @@
+import { instance } from "./Axios";
+
 interface RootObject {
   id: number;
   title: string;
@@ -15,20 +17,30 @@ interface Writer {
   nickname: string;
 }
 
-export const postLike = async (articleId: number, token: string) => {
+export const postLike = async (
+  articleId: number
+): Promise<RootObject | undefined> => {
   try {
-    const response = await fetch(`${BASE_URL}/articles/${articleId}/like`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (response.ok) {
-      return response.json();
-    }
+    const response = await instance.post<RootObject>(
+      `/articles/${articleId}/like`
+    );
+    return response.data;
   } catch (error) {
     console.error("Failed to like the post:", error);
+    return undefined;
   }
 };
 
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const deleteLike = async (
+  articleId: number
+): Promise<RootObject | undefined> => {
+  try {
+    const response = await instance.delete<RootObject>(
+      `/articles/${articleId}/like`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to unlike the post:", error);
+    return undefined;
+  }
+};

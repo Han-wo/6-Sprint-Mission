@@ -1,24 +1,35 @@
+"use client";
 import styles from "@/components/BoardDetail/BoardDetail.module.css";
-import { getArticleDetail, RootObject } from "@/app/apis/getArticleDetail";
+import { RootObject } from "@/app/apis/getArticleDetail";
 import { formatDate } from "@/app/utils/formateDate";
 import Image from "next/image";
-import heartImg from "@/app/assets/images/ic_heart.svg";
 import profileImg from "@/app/assets/images/ic_profile.png";
-import KebabIcon from "@/app/assets/images/ic_kebab.png";
+import LikeButton from "./LikeButton";
+import DropdownMenu from "@/components/DropDown";
+import { useState } from "react";
+import ImageModal from "@/components/ImageModal";
 
 type Props = {
-  articleId: number;
+  article: RootObject;
 };
 
-export default async function BoardDetail({ articleId }: Props) {
-  const article: RootObject = await getArticleDetail(articleId);
+export default function BoardDetail({ article }: Props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <div className={styles.titleWrapper}>
           <div className={styles.title}>{article.title}</div>
-          <Image src={KebabIcon} alt="케밥아이콘" />
+          <DropdownMenu articleId={article.id} />
         </div>
         <div className={styles.tagWrapper}>
           <div className={styles.writerInfo}>
@@ -26,10 +37,10 @@ export default async function BoardDetail({ articleId }: Props) {
             <span className={styles.writer}>{article.writer.nickname}</span>
             <span className={styles.date}>{formatDate(article.createdAt)}</span>
           </div>
-          <div className={styles.likeCount}>
-            <Image src={heartImg} alt="좋아요아이콘" width={24} height={24} />
-            {article.likeCount}
-          </div>
+          <LikeButton
+            articleId={article.id}
+            initialLikeCount={article.likeCount}
+          />
         </div>
       </div>
       <div className={styles.contentWrapper}>
@@ -42,10 +53,16 @@ export default async function BoardDetail({ articleId }: Props) {
               className={styles.image}
               width={72}
               height={72}
+              onClick={openModal}
             />
           )}
         </div>
       </div>
+      <ImageModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        imageSrc={article.image || ""}
+      />
     </div>
   );
 }

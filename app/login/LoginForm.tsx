@@ -35,8 +35,6 @@ const LoginForm = () => {
         if (typeof window !== "undefined") {
           localStorage.setItem("accessToken", accessToken);
         }
-        console.log("로그인 성공");
-        console.log("토큰:", accessToken);
         router.push("/items");
       }
     } catch (error) {
@@ -46,13 +44,13 @@ const LoginForm = () => {
 
   return (
     <>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className={styles.form}>
         <div className={styles.inputContainer}>
           <label htmlFor="email" className={styles.label}>
             이메일
           </label>
           <input
-            className={`${styles.input} email-input`}
+            className={`${styles.input} ${errors.email ? styles.error : ""}`}
             placeholder="이메일을 입력해주세요"
             type="email"
             {...register("email")}
@@ -63,15 +61,13 @@ const LoginForm = () => {
           <label htmlFor="password" className={styles.label}>
             비밀번호
           </label>
-          <div className="input-wrapper">
-            <input
-              className={`${styles.input} password-input`}
-              placeholder="비밀번호를 입력해주세요"
-              type="password"
-              {...register("password")}
-            />
-            <div className={styles.errorText}>{errors.password?.message}</div>
-          </div>
+          <input
+            className={`${styles.input} ${errors.password ? styles.error : ""}`}
+            placeholder="비밀번호를 입력해주세요"
+            type="password"
+            {...register("password")}
+          />
+          <div className={styles.errorText}>{errors.password?.message}</div>
         </div>
         <button
           type="submit"

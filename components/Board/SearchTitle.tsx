@@ -15,6 +15,7 @@ interface Props {
   page: number;
   pageSize: number;
   orderBy: string;
+  totalCount: number;
 }
 
 export default function SearchTitle({
@@ -23,6 +24,7 @@ export default function SearchTitle({
   page,
   pageSize,
   orderBy,
+  totalCount,
 }: Props) {
   const router = useRouter();
   const [sortBy, setSortBy] = useState(orderBy);
@@ -35,15 +37,20 @@ export default function SearchTitle({
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
-      router.push(
-        `/boards?page=${page}&pageSize=${pageSize}&keyword=${searchKeyword}&orderBy=${sortBy}`
-      );
+      const params = new URLSearchParams();
+      params.append("page", String(page));
+      params.append("pageSize", String(pageSize));
+      params.append("keyword", searchKeyword);
+      params.append("orderBy", sortBy);
+
+      const newUrl = `/boards?${params.toString()}`;
+      router.push(newUrl);
     }, 300);
 
     return () => {
       clearTimeout(debounceTimer);
     };
-  }, [searchKeyword, page, pageSize, sortBy]);
+  }, [searchKeyword, pageSize, sortBy]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
@@ -52,13 +59,47 @@ export default function SearchTitle({
   const handleSortChange = (newSortBy: string) => {
     setSortBy(newSortBy);
     setIsDropdownOpen(false);
-    router.replace(
-      `/boards?page=${page}&pageSize=${pageSize}&keyword=${searchKeyword}&orderBy=${newSortBy}`
-    );
+
+    const params = new URLSearchParams();
+    params.append("page", String(page));
+    params.append("pageSize", String(pageSize));
+    params.append("keyword", searchKeyword);
+    params.append("orderBy", newSortBy);
+
+    const newUrl = `/boards?${params.toString()}`;
+    router.push(newUrl);
   };
 
   const handleArticleClick = (articleId: number) => {
-    router.push(`/boards/${articleId}`);
+    const params = new URLSearchParams();
+    params.append("page", String(page));
+    params.append("pageSize", String(pageSize));
+    params.append("keyword", searchKeyword);
+    params.append("orderBy", sortBy);
+
+    const newUrl = `/boards/${articleId}?${params.toString()}`;
+    router.push(newUrl);
+  };
+
+  const totalPages = Math.ceil(totalCount / pageSize);
+  const pageRange = 5;
+  const startPage = Math.max(1, page - Math.floor(pageRange / 2));
+  const endPage = Math.min(totalPages, startPage + pageRange - 1);
+
+  const pageNumbers = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, index) => startPage + index
+  );
+
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams();
+    params.append("page", String(newPage));
+    params.append("pageSize", String(pageSize));
+    params.append("keyword", searchKeyword);
+    params.append("orderBy", sortBy);
+
+    const newUrl = `/boards?${params.toString()}`;
+    router.push(newUrl, { scroll: false });
   };
 
   return (
@@ -137,6 +178,37 @@ export default function SearchTitle({
           </li>
         ))}
       </ul>
+      <div className={styles.pagination}>
+        <button
+          className={`${styles.paginationButton} ${styles.prev} ${
+            startPage === 1 ? styles.disabled : ""
+          }`}
+          onClick={() => handlePageChange(startPage - 1)}
+          disabled={startPage === 1}
+        >
+          {"<"}
+        </button>
+        {pageNumbers.map((pageNumber) => (
+          <button
+            key={pageNumber}
+            className={`${styles.paginationButton} ${
+              page === pageNumber ? styles.active : ""
+            }`}
+            onClick={() => handlePageChange(pageNumber)}
+          >
+            {pageNumber}
+          </button>
+        ))}
+        <button
+          className={`${styles.paginationButton} ${styles.next} ${
+            endPage === totalPages ? styles.disabled : ""
+          }`}
+          onClick={() => handlePageChange(endPage + 1)}
+          disabled={endPage === totalPages}
+        >
+          {">"}
+        </button>
+      </div>
     </div>
   );
 }

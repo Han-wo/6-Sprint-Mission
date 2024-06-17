@@ -39,6 +39,7 @@ const Header = () => {
 
   const handleLogoutClick = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     setIsLoggedIn(false);
   };
 

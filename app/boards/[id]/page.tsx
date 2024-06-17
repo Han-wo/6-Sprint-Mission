@@ -1,6 +1,8 @@
 import BoardDetail from "@/components/BoardDetail/BoardDetail";
 import CommentInput from "@/components/BoardDetail/CommentInput";
 import CommentsList from "@/components/BoardDetail/CommentsList";
+import { getComments } from "@/app/apis/getComments";
+import { getArticleDetail, RootObject } from "@/app/apis/getArticleDetail";
 import styles from "@/app/boards/[id]/Page.module.css";
 import backIcon from "@/app/assets/images/ic_back.png";
 import Link from "next/link";
@@ -12,16 +14,18 @@ interface BoardDetailProps {
   };
 }
 
-export default function BoardDetailPage({ params }: BoardDetailProps) {
+export default async function BoardDetailPage({ params }: BoardDetailProps) {
   const articleId = parseInt(params.id, 10);
+  const { list: comments } = await getComments(articleId, 5);
+  const article: RootObject = await getArticleDetail(articleId);
 
   return (
     <div>
       <div className={styles.boardDetail}>
-        <BoardDetail articleId={articleId} />
+        <BoardDetail article={article} />
         <label className={styles.commentLabel}>댓글달기</label>
         <CommentInput articleId={articleId} />
-        <CommentsList articleId={articleId} />
+        <CommentsList articleId={articleId} comments={comments} />
         <div className={styles.commentButtonContainer}>
           <Link href="/boards">
             <button className={styles.backButton}>

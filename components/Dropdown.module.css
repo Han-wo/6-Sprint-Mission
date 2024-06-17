@@ -1,0 +1,45 @@
+/* Dropdown.module.css */
+
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.kebabIcon {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px); /* 아이콘과 약간의 간격 */
+  right: 0;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  z-index: 1;
+  min-width: 120px; /* 메뉴 항목 최소 너비 */
+}
+
+.dropdownItem {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #f2f2f2;
+}
+
+.dropdownItem:last-child {
+  color: #e53935; /* 삭제 메뉴 항목 색상 */
+}
+
+.dropdownItem:last-child:hover {
+  background-color: #fce4ec; /* 삭제 메뉴 항목 호버 배경색 */
+}
